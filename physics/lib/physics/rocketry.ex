@@ -23,10 +23,6 @@ defmodule Physics.Rocketry do
           |> square_root
     end
     
-    def orbital_acceleration(planet, height) do
-        (orbital_speed(planet, height) |> squared) / orbital_radius(planet, height)
-    end 
-    
     def orbital_term(height), do: orbital_term(earth, height)
     def orbital_term(:mars, height), do: orbital_term(mars, height)
     def orbital_term(:earth, height), do: orbital_term(earth, height)
@@ -35,7 +31,11 @@ defmodule Physics.Rocketry do
         4 * (:math.pi |> squared) * (orbital_radius(planet, height) |> cubed) / (newtons_gravitational_constant * planet.mass)
             |> square_root
             |> seconds_to_hours
-    end
+    end   
+        
+    def orbital_acceleration(planet, height) do
+        (orbital_speed(planet, height) |> squared) / orbital_radius(planet, height)
+    end 
     
     def orbital_height(planet, seconds) do
       (newtons_gravitational_constant * planet.mass * (seconds |> squared)) / (4 * (:math.pi |> squared))
