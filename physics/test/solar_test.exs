@@ -20,8 +20,16 @@ defmodule SolarTest do
     assert length(flares) == 8
   end
   
-  test "power :x", %{data: flares} do
+  test "power :X", %{data: flares} do
     assert 99000 == Solar.power(List.first(flares))
   end 
+  
+  test "power :M" do
+    assert 990 == Solar.power(%{classification: :M, scale: 99})
+  end 
+  
+  test "power :C", %{data: flares} do 
+    assert 99 == Solar.power(%{classification: :C, scale: 99})
+  end
 
 end
