@@ -19,5 +19,9 @@ defmodule SolarTest do
   test "We have 8 solar flares", %{data: flares} do
     assert length(flares) == 8
   end
+  
+  test "power :x", %{data: flares} do
+    assert 99000 == Solar.power(List.first(flares))
+  end 
 
 end
