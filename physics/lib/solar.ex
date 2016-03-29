@@ -14,5 +14,16 @@ defmodule Solar do
     def flare_power_sum(flares), do: flare_power_sum(flares, 0)
     def flare_power_sum([], total), do: total
     def flare_power_sum([head | tail], total), do: flare_power_sum(tail, power(head) + total)
+    
+    def flare_power_comprehension(flares) do
+      (for flare <- flares, do: power(flare)) |> Enum.sum
+    end
+    
+    def flare_list(flares) do
+      Enum.map flares, fn(flare) ->
+        p = power(flare)
+        {:flare, :power, p, :is_deadly, p > 1000}
+      end
+    end 
       
 end

@@ -33,11 +33,29 @@ defmodule SolarTest do
   end
 
   test "total_flare_power", %{data: flares} do
-    assert 216911.7 = Solar.total_flare_power(flares)
+    assert 216911.7 == Solar.total_flare_power(flares)
   end 
 
   test "flare_power_sum", %{data: flares} do
-    assert 216911.7 = Solar.flare_power_sum(flares)
+    assert 216911.7 == Solar.flare_power_sum(flares)
+  end 
+
+  test "flare_power_comprehension", %{data: flares} do 
+    assert Solar.flare_power_sum(flares) == Solar.total_flare_power(flares)
+  end
+
+  test "flare_list", %{data: flares} do 
+    result = Solar.flare_list(flares)
+    assert result == [
+      {:flare, :power, 99000, :is_deadly, true},
+      {:flare, :power, 58.0, :is_deadly, false},
+      {:flare, :power, 12.0, :is_deadly, false},
+      {:flare, :power, 3.2, :is_deadly, false},
+      {:flare, :power, 836.0, :is_deadly, false},
+      {:flare, :power, 2.5, :is_deadly, false},
+      {:flare, :power, 72000, :is_deadly, true},
+      {:flare, :power, 45000, :is_deadly, true}
+    ]
   end 
 
 end
