@@ -1,6 +1,7 @@
 defmodule SolarTest do
   use ExUnit.Case
   use Timex
+  import Solar.Flare
 
   setup do
     flares = [
@@ -21,31 +22,31 @@ defmodule SolarTest do
   end
   
   test "power :X", %{data: flares} do
-    assert 99000 == Solar.power(List.first(flares))
+    assert 99000 == power(List.first(flares))
   end 
   
   test "power :M" do
-    assert 990 == Solar.power(%{classification: :M, scale: 99})
+    assert 990 == power(%{classification: :M, scale: 99})
   end 
   
   test "power :C", %{data: flares} do 
-    assert 99 == Solar.power(%{classification: :C, scale: 99})
+    assert 99 == power(%{classification: :C, scale: 99})
   end
 
   test "total_flare_power", %{data: flares} do
-    assert 216911.7 == Solar.total_flare_power(flares)
+    assert 216911.7 == total_flare_power(flares)
   end 
 
   test "flare_power_sum", %{data: flares} do
-    assert 216911.7 == Solar.flare_power_sum(flares)
+    assert 216911.7 == flare_power_sum(flares)
   end 
 
   test "flare_power_comprehension", %{data: flares} do 
-    assert Solar.flare_power_sum(flares) == Solar.total_flare_power(flares)
+    assert flare_power_sum(flares) == total_flare_power(flares)
   end
 
   test "flare_list", %{data: flares} do 
-    result = Solar.flare_list(flares)
+    result = flare_list(flares)
     assert result == [
       {:flare, :power, 99000, :is_deadly, true},
       {:flare, :power, 58.0, :is_deadly, false},
