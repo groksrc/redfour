@@ -32,5 +32,22 @@ defmodule PGTest do
     IO.inspect res
     Postgrex.Connection.stop(pid)
   end
+  
+  test "Querying with postgrex", %{data: flares} do
+    {:ok, pid} = Postgrex.Connection.start_link(hostname: "localhost", database: "redfour")
+    sql = """
+    select * from solar_flares
+    """
+    res = Postgrex.Connection.query!(pid, sql, []) 
+           |> transform_result
+
+    IO.inspect res
+    Postgrex.Connection.stop(pid)
+  end
+  
+  def transform_result(result) do
+    atomized = for col <- result.columns, do: String.to_atom(col)
+    for row <- result.rows, do: List.zip([atomized, row]) |> Enum.into(%{})
+  end
 
 end
